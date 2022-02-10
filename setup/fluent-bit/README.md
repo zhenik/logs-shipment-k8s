@@ -14,3 +14,14 @@ Docker-desktop k8s cluster uses `containerd` as CRI
 kubectl get configmap -n logging
 
 ```
+
+## Pod-to-pod connection
+
+- [https://stackoverflow.com/a/52275246](https://stackoverflow.com/a/52275246)
+
+## Todos
+
+Might need change in `fluent-bit-configmap.yaml` -> `docker` to `cri` according to doc
+
+> The default configmap assumes that dockershim is utilized for the cluster. If a CRI runtime, such as containerd or CRI-O, is being utilized,
+> the CRI parser should be utilized. More specifically, change the Parser described in input-kubernetes.conf from docker to cri.

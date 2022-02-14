@@ -1,0 +1,30 @@
+{
+  "_index" : "applogs-2022.02.14",
+  "_type" : "fluentd",
+  "_id" : "EqBL934BTEWaaWX7eIOH",
+  "_score" : 7.4302526,
+  "_source" : {
+    "message" : """'10.100.12.46 - - [14/Feb/2022:09:13:36 +0100] "GET /monitoring/dashboard.json HTTP/1.1" 200 319098 "https://internal.bring.com/monitoring/" "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36" "CID:f55f16" 14""",
+    "host" : "'10.100.12.46",
+    "user" : "-",
+    "method" : "GET",
+    "path" : "/monitoring/dashboard.json",
+    "code" : 200,
+    "size" : 319098,
+    "referer" : "https://internal.bring.com/monitoring/",
+    "agent" : "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36",
+    "cid" : "f55f16",
+    "timetaken" : 14,
+    "docker" : {
+      "container_id" : "e735fecd60b10f089a25da7a0407199c5e99896a0759f8fc45ed59d1f6959b3a"
+    },
+    "kubernetes" : {
+      "container_name" : "monitoring",
+      "namespace_name" : "platform",
+      "pod_name" : "monitoring-58999fdfd-z9fpn",
+      "pod_id" : "630bd1bb-eb71-4497-b4fd-47d1203bec3c",
+      "host" : "aks-standard-10621383-vmss00000f"
+    },
+    "@timestamp" : "2022-02-14T08:13:36.000000000+00:00"
+  }
+}

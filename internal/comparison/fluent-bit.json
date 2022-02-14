@@ -1,0 +1,26 @@
+{
+  "_index": "logstash-2022.02.14",
+  "_type": "_doc",
+  "_id": "fUmF-H4BbrlsE6yl06SI",
+  "_score": 5.9978056,
+  "_source": {
+    "@timestamp": "2022-02-14T13:57:00.897Z",
+    "log": "2022-02-14 13:57:00.894  INFO 1 --- [           main] com.zhenik.app.simple.Application        : Starting Application v0.0.1-SNAPSHOT using Java 15.0.2 on simpleapp-deployment-5d7f68f444-jbzxp with PID 1 (/app.jar started by root in /)\n",
+    "stream": "stdout",
+    "time": "2022-02-14T13:57:00.8975698Z",
+    "kubernetes": {
+      "pod_name": "simpleapp-deployment-5d7f68f444-jbzxp",
+      "namespace_name": "apps",
+      "pod_id": "4b903ad5-fdcc-4d19-bb27-1aa1252a4839",
+      "labels": {
+        "app": "simpleapp",
+        "pod-template-hash": "5d7f68f444"
+      },
+      "host": "docker-desktop",
+      "container_name": "simpleapp",
+      "docker_id": "fadaa14548c5c2c9f1dba412ff2c6a3b9258a235288f7310934825e4d6ebb243",
+      "container_hash": "sha256:95fa9c194fee0240711f37cb9f578a9d91d8833185b49bcdaf317565440bbe27",
+      "container_image": "simple-app:1.0"
+    }
+  }
+}

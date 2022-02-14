@@ -10,7 +10,7 @@ delete-all:
 	kubectl delete -f ./internal/fluent-bit-role-1.22.yaml
 	kubectl delete -f ./internal/fluent-bit-service-account.yaml
 	kubectl delete -f ./internal/elasticsearch.yaml
-
+	kubectl delete -f ../simpleapp/simpleapp.yaml
 
 
 

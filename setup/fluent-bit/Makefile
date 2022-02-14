@@ -1,4 +1,5 @@
 LOGGING_NAMESPACE:=logging
+APPLICATION_NAMESPACE:=apps
 
 # start
 start-all: install config-map fluent-bit-es-minikube
@@ -10,9 +11,18 @@ delete-all:
 	kubectl delete -f ./internal/fluent-bit-service-account.yaml
 	kubectl delete -f ./internal/elasticsearch.yaml
 
+
+
+
+
+
+
+
+
 # actions
 namespace:
 	kubectl create namespace ${LOGGING_NAMESPACE}
+	kubectl create namespace ${APPLICATION_NAMESPACE}
 install:
 	kubectl create -f ./internal/elasticsearch.yaml
 	kubectl create -f ./internal/fluent-bit-service-account.yaml
@@ -35,3 +45,10 @@ curl:
 	curl http://localhost:9200/_cat/indices
 describe-service:
 	kubectl describe service elasticsearch -n logging
+
+
+# application
+app:
+	kubectl create -f ../simpleapp/simpleapp.yaml
+app-rm:
+	kubectl delete -f ../simpleapp/simpleapp.yaml

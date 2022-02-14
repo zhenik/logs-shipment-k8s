@@ -1,4 +1,3 @@
 logging:
   file:
-    name: /tmp/log/simpleapp
-#    path: /var/log/
+    name: /var/log/simpleapp

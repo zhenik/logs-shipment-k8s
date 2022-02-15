@@ -2,7 +2,7 @@ LOGGING_NAMESPACE:=logging
 APPLICATION_NAMESPACE:=apps
 
 # start
-start-all: install config-map fluent-bit-es-minikube
+start-all: install config-map fluent-bit-es-minikube app
 delete-all:
 	kubectl delete -f ./internal/fluent-bit-ds-minikube.yaml
 	kubectl delete -f ./internal/fluent-bit-configmap.yaml

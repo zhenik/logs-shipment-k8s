@@ -1,5 +1,6 @@
 LOGGING_NAMESPACE:=vector
 APPLICATION_NAMESPACE:=apps
+.DEFAULT_GOAL := start-all
 
 # start
 start-all:

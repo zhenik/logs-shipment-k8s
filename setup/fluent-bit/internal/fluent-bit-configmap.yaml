@@ -45,6 +45,10 @@ data:
         Merge_Log_Key       log_processed
         K8S-Logging.Parser  Off
         K8S-Logging.Exclude On
+    [FILTER]
+        Name                grep
+        Match               kube.*
+        Exclude             $kubernetes['container_name'] fluent-bit
 
   output-elasticsearch.conf: |
     [OUTPUT]

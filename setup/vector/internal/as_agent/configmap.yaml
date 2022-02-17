@@ -39,3 +39,7 @@ data:
         inputs: [kubernetes_logs]
         encoding:
           codec: json
+      es:
+        type: elasticsearch
+        inputs: [kubernetes_logs]
+        endpoint: http://elasticsearch:9200

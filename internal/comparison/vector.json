@@ -1,0 +1,34 @@
+{
+  "_index": "vector-2022.02.17",
+  "_type": "_doc",
+  "_id": "zk7oB38BEXat7i58BJft",
+  "_score": 2.3246562,
+  "_source": {
+    "file": "/var/log/pods/apps_simpleapp-deployment-5d7f68f444-wp2rc_dc02556f-2297-4c92-be63-7aa2f991926c/simpleapp/0.log",
+    "kubernetes": {
+      "container_id": "docker://deedadeeb08b636ce8f10125d044536399de0958b716e2153986263b1a9cf8ed",
+      "container_image": "simple-app:1.0",
+      "container_name": "simpleapp",
+      "namespace_labels": {
+        "kubernetes.io/metadata.name": "apps"
+      },
+      "pod_ip": "10.1.0.185",
+      "pod_ips": [
+        "10.1.0.185"
+      ],
+      "pod_labels": {
+        "app": "simpleapp",
+        "pod-template-hash": "5d7f68f444"
+      },
+      "pod_name": "simpleapp-deployment-5d7f68f444-wp2rc",
+      "pod_namespace": "apps",
+      "pod_node_name": "docker-desktop",
+      "pod_owner": "ReplicaSet/simpleapp-deployment-5d7f68f444",
+      "pod_uid": "dc02556f-2297-4c92-be63-7aa2f991926c"
+    },
+    "message": "2022-02-17 13:37:36.854  INFO 1 --- [           main] com.zhenik.app.simple.Application        : Starting Application v0.0.1-SNAPSHOT using Java 15.0.2 on simpleapp-deployment-5d7f68f444-wp2rc with PID 1 (/app.jar started by root in /)",
+    "source_type": "kubernetes_logs",
+    "stream": "stdout",
+    "timestamp": "2022-02-17T13:37:36.855751508Z"
+  }
+}

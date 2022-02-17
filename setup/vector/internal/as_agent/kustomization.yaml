@@ -6,6 +6,7 @@ namespace: vector
 resources:
   - namespace.yaml
   - configmap.yaml
+  - elasticsearch.yaml
   - daemonset.yaml
   - rbac.yaml
   - serviceaccount.yaml

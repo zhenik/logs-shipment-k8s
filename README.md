@@ -21,14 +21,14 @@
 
 ## Syntax definitions
 
-| Field                                                                        | Fluentd           | Fluent-bit | Vector    |
-|------------------------------------------------------------------------------|-------------------|------------|-----------|
-| system setup                                                                 | <system></system> | [SERVICE]  |           |
-| gather information from different sources                                    | <source></source> | [INPUT]    | SOURCE    |
-| structure or format  data                                                    | <format></format> | [PARSER]   | TRANSFORM |
-| filtering (modify, enrich, drop)                                             | <filter></filter> | [FILTER]   |           |
-| buffering data                                                               | <buffer></buffer> | [BUFFER]   |           |
-| route your data through Filters and finally to one or multiple destinations. | <match></match>   | [OUTPUT]   | SINK      |
+| Field                                                                        | Fluentd               | Fluent-bit | Vector    |
+|------------------------------------------------------------------------------|-----------------------|------------|-----------|
+| system setup                                                                 | \<system\>\</system\> | [SERVICE]  |           |
+| gather information from different sources                                    | \<source>\</source\>  | [INPUT]    | SOURCE    |
+| structure or format  data                                                    | \<format\>\</format\> | [PARSER]   | TRANSFORM |
+| filtering (modify, enrich, drop)                                             | \<filter\>\</filter\> | [FILTER]   |           |
+| buffering data                                                               | \<buffer\>\</buffer\> | [BUFFER]   |           |
+| route your data through Filters and finally to one or multiple destinations. | \<match\>\</match\>   | [OUTPUT]   | SINK      |
 
 ## FluentBit annotations
 Directly on `yaml` file. Which parser to use.

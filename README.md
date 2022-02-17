@@ -12,7 +12,7 @@
 | syntax        | XML'ish in .conf                                           | Common .conf                                                 | .yaml,json,toml                                     |
 | additional    | can work as Aggregators or Forwarders                      | can work as Aggregators or Forwarders                        | Simple topology principle (Source, Transform, Sink) |
 | Tests         | todo                                                       | todo                                                         | Unit Tests for Transforms                           |
-| Obesrvability | todo                                                       | todo                                                         | Logs, Metrics. (Traces soon)                        |
+| Observability | todo                                                       | todo                                                         | Logs, Metrics. (Traces soon)                        |
 
 
 

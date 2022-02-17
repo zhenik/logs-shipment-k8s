@@ -2,15 +2,22 @@
 
 ## Quick
 
-| text         | Fluentd                                                    | Fluent-bit                                                   | Vector |
-|--------------|------------------------------------------------------------|--------------------------------------------------------------|--------|
-| Language     | Ruby & C                                                   | C                                                            |        |
-| Memory       | ~40MB                                                      | ~650KB                                                       |        |
-| Dependencies | Built as a Ruby Gem, it requires a certain number of gems. | Zero dependencies, unless some special plugin requires them. |        |
-| Plugins      | 1000+ available                                            | 70+ available                                                |        |
-| License      | Apache License v2.0                                        | Apache License v2.0                                          |        |
-| syntax       | XML'ish in .conf                                           | Common .conf                                                 |        |
-| additional   | can work as Aggregators or Forwarders                      | can work as Aggregators or Forwarders                        |        |
+| text          | Fluentd                                                    | Fluent-bit                                                   | Vector                                              |
+|---------------|------------------------------------------------------------|--------------------------------------------------------------|-----------------------------------------------------|
+| Language      | Ruby & C                                                   | C                                                            | Rust                                                |
+| Memory        | ~40MB                                                      | ~650KB                                                       | Says less than fluent-bit                           |
+| Dependencies  | Built as a Ruby Gem, it requires a certain number of gems. | Zero dependencies, unless some special plugin requires them. | ??                                                  |
+| Plugins       | 1000+ available                                            | 70+ available                                                | 100+ available                                      |
+| License       | Apache License v2.0                                        | Apache License v2.0                                          | Mozilla Public License 2.0                          |
+| syntax        | XML'ish in .conf                                           | Common .conf                                                 | .yaml,json,toml                                     |
+| additional    | can work as Aggregators or Forwarders                      | can work as Aggregators or Forwarders                        | Simple topology principle (Source, Transform, Sink) |
+| Tests         | todo                                                       | todo                                                         | Unit Tests for Transforms                           |
+| Obesrvability | todo                                                       | todo                                                         | Logs, Metrics. (Traces soon)                        |
+
+
+
+- :warning: [Additional comparison](https://github.com/vectordotdev/vector#comparisons)
+- [Who is the winner — Comparing Vector, Fluent Bit, Fluentd performance](https://medium.com/ibm-cloud/log-collectors-performance-benchmarking-8c5218a08fea)
 
 ## Syntax definitions
 
@@ -51,3 +58,8 @@ spec:
 - [Youtube - Fluent Bit explained | Fluent Bit vs Fluentd](https://youtu.be/B2IS-XS-cc0?t=510)
 - [Medium - Who is the winner — Comparing Vector, Fluent Bit, Fluentd performance](https://medium.com/ibm-cloud/log-collectors-performance-benchmarking-8c5218a08fea)
 - [Visualization tool for Fluentbit - Calyptia](https://calyptia.com/)
+
+
+## TODO
+- Releases
+- 

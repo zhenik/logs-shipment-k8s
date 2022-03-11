@@ -1,0 +1,47 @@
+[sources.all_container_services]
+type = "docker_logs"
+docker_host = "http://localhost:2375"
+include_images = ["web_frontend", "web_backend", "auth_service"]
+
+# The transform being tested is a Vector Remap Language (VRL) transform that
+# adds two fields to each incoming log event: a timestamp and a unique ID
+[transforms.add_metadata]
+type = "remap"
+inputs = ["all_container_services"]
+source = '''
+.timestamp = now()
+.id = uuid_v4()
+'''
+
+#[sinks.my_sink_id]
+#type = "console"
+#inputs = [ "add_metadata" ]
+#target = "stdout"
+#encoding.codec = "json"
+
+## Here we begin configuring our test suite
+[[tests]]
+name = "Test for the add_metadata transform"
+
+# The inputs for the test
+[[tests.inputs]]
+insert_at = "add_metadata" # The transform into which the testing event is inserted
+type = "log"               # The event type (either log or metric)
+
+# The test log event that is passed to the `add_metadata` transform
+[tests.inputs.log_fields]
+message = "successful transaction"
+code = 200
+
+# The expected outputs of the test
+[[tests.outputs]]
+extract_from = "add_metadata" # The transform from which the resulting event is extracted
+
+# The declaration of what we expect
+[[tests.outputs.conditions]]
+type = "vrl"
+source = '''
+assert!(is_timestamp(.timestamp))
+assert!(is_string(.id))
+assert_eq!(.message, "successful transaction")
+'''

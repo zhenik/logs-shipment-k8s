@@ -1,0 +1,38 @@
+data_dir = "./data"
+dns_servers = []
+
+[sources.application]
+max_length = 102400
+type = "stdin"
+
+[transforms.parse]
+inputs = ["application"]
+drop_field = true
+drop_invalid = false
+type = "json_parser"
+
+[transforms.not_gdpr]
+type = "filter"
+inputs = ["parse"]
+condition = ".gdpr == false"
+
+[transforms.gdpr_to_strip]
+type = "filter"
+inputs = ["parse"]
+condition = ".gdpr == true"
+
+[transforms.gdpr_stripped]
+type = "remap"
+inputs = ["gdpr_to_strip"]
+source = "del(.email)"
+
+[sinks.console]
+healthcheck = true
+inputs = ["not_gdpr", "gdpr_stripped"]
+type = "console"
+encoding = "json"
+
+[sinks.console.buffer]
+type = "memory"
+max_events = 500
+when_full = "block"

@@ -1,0 +1,45 @@
+data_dir = "./tmp"
+
+#[sources.file_1]
+#type = "file"
+#ignore_older_secs = 600
+#include = [ "./logs/**/*.log" ]
+#read_from = "beginning"
+
+#[sinks.my_sink_1]
+#type = "console"
+#inputs = [ "file_1" ]
+#target = "stdout"
+#encoding = "text"
+
+[sources.stdin_1]
+type = "stdin"
+decoding.codec = "json"
+
+[transforms.add_metadata]
+type = "remap"
+inputs = ["stdin_1"]
+source = '''
+.timestamp = now()
+.id = uuid_v4()
+'''
+
+[sinks.stdout_1]
+type = "console"
+inputs = [ "stdin_1" ]
+target = "stdout"
+encoding = "json"
+
+
+[[tests]]
+name = "tezt1"
+
+[[tests.inputs]]
+insert_at = "add_metadata"
+#type = "raw"
+#value = "2019-11-28T12:00:00+00:00 info Sorry, I'm busy this week Cecil"
+value = "{'name':'lol'}"
+
+[[tests.outputs]]
+extract_from = "add_metadata"
+

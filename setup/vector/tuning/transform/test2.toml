@@ -1,0 +1,26 @@
+#[sources.over_tcp]
+#type = "socket"
+#mode = "tcp"
+#address = "0.0.0.0:9000"
+#
+##[transforms.foo]
+##type = "grok_parser"
+##inputs = ["over_tcp"]
+##pattern = "%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:level} %{GREEDYDATA:message}"
+#
+#[sinks.my_sink_1]
+#type = "console"
+#inputs = [ "over_tcp" ]
+#target = "stdout"
+#encoding = "text"
+#
+#[[tests]]
+#name = "check_simple_log"
+#
+#[[tests.inputs]]
+#insert_at = "my_sink_1"
+#type = "raw"
+#value = "2019-11-28T12:00:00+00:00 info Sorry, I'm busy this week Cecil"
+#
+#[[tests.outputs]]
+#extract_from = "my_sink_1"

@@ -1,0 +1,3 @@
+{ "id": "user1", "gdpr": false, "email": "us-user1@datadoghq.com" }
+{ "id": "user2", "gdpr": false, "email": "us-user2@datadoghq.com" }
+{ "id": "user3", "gdpr": true, "email": "eu-user3@datadoghq.com" }

@@ -73,3 +73,7 @@ We use `yaml` due to we deploy thing through the `helm` which use `yaml` also
 
 ## Deep dive in current setup
 - todo//
+
+## What do I need to build proper
+- file logs from kubernetes
+- different types of logs (json, apache, tomcat, ...)

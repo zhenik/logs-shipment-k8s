@@ -3,36 +3,40 @@ sources:
   stdin:
     type: stdin
 transforms:
-  message_parser:
+  json_parser:
     type: remap
-    drop_on_error: true
-    reroute_dropped: true
-    drop_on_abort: true
     inputs:
       - stdin
     source: |-
+      original = .message
+      if original != null {
+        log(original, level: "info")
+      }
+      parse_original = parse_json!(.message)
+      if parse_original != null {
+        log(parse_original, level: "info")
+      }
+      parse_string_original = parse_json!(string!(.message))
+      if parse_string_original != null {
+        log(parse_string_original, level: "info")
+      }
       . = parse_json!(string!(.message))
       structured,err = parse_json(.message)
       . = merge!(., structured)
 sinks:
   stdout:
     type: console
-    inputs: [ message_parser ]
+    inputs: [ json_parser ]
     encoding:
       codec: json
-  blackhole_dropped_logs:
-    type: blackhole
-    inputs: [ message_parser.dropped ]
-
 
 tests:
   - name: Parse json success
     inputs:
-      - insert_at: message_parser
-        # `./event_json.log`
+      - insert_at: json_parser
         value: '{"file": "/var/log/pods/checkout_pickuppoint-cloud-5d6d55c7f-76rxs_7c7870be-369b-4e6a-a547-05b9a529e499/pickuppoint-cloud/1.log","kubernetes": {"container_id": "containerd://1b9fb0042fbadc9850d4555e3d0c7fb37c8588bb205918b08de269356cbd4eb8","container_image": "bring.azurecr.io/pickuppoint-cloud:444db448896c6d1531e78a165fff596c05db7e06","container_name": "pickuppoint-cloud","pod_annotations": { "ad.datadoghq.com/pickuppoint-cloud.check_names": "[\"jmx\"]","ad.datadoghq.com/pickuppoint-cloud.init_configs": "[{\"is_jmx\":true,\"collect_default_metrics\":true,\"conf\":[]}]","ad.datadoghq.com/pickuppoint-cloud.instances": "[{\"host\": \"%%host%%\",\"port\":\"7199\"}]","seccomp.security.alpha.kubernetes.io/pod": "runtime/default"},"pod_ip": "10.102.8.157","pod_ips": ["10.102.8.157"],"pod_labels": {"aadpodidbinding": "checkout-managed-identity","app.kubernetes.io/instance": "pickuppoint-cloud","app.kubernetes.io/name": "pickuppoint-cloud","pod-template-hash": "5d6d55c7f"},"pod_name": "pickuppoint-cloud-5d6d55c7f-76rxs","pod_namespace": "checkout","pod_node_name": "aks-standard-32704328-vmss00000b","pod_owner": "ReplicaSet/pickuppoint-cloud-5d6d55c7f","pod_uid": "7c7870be-369b-4e6a-a547-05b9a529e499"},"message": "{\"instant\":{\"epochSecond\":1646831873,\"nanoOfSecond\":200048166},\"thread\":\"qtp673586830-24\",\"level\":\"WARN\",\"loggerName\":\"com.mybring.common.web2.MybringResponseHeaders\",\"message\":\"Not adding no-cache headers since response was already commited. You might want to set headers manually for /pickuppoint/revision.txt (HTTP status 200)\",\"endOfBatch\":false,\"loggerFqcn\":\"org.apache.logging.slf4j.Log4jLogger\",\"contextMap\":{\"correlationId\":\"zZv0Y6\"},\"threadId\":24,\"threadPriority\":5,\"source\":{\"class\":\"com.mybring.common.web2.MybringResponseHeaders\",\"method\":\"addSecurityAndNoCacheHeadersIfMissing\",\"file\":\"MybringResponseHeaders.java\",\"line\":40},\"time\":\"2022-03-09T13:17:53.200+0000\"}","source_type": "kubernetes_logs","stream": "stdout","timestamp": "2022-03-09T13:17:53.200470891Z"}'
     outputs:
-      - extract_from: message_parser
+      - extract_from: json_parser
         conditions:
           - type: vrl
             source: |-
@@ -56,18 +60,3 @@ tests:
               assert!(exists(.threadPriority))
               assert!(exists(.time))
               assert!(exists(.timestamp))
-
-  - name: Parse tomcat logs with json parser, goes dropped messages
-    inputs:
-      - insert_at: message_parser
-        # `./event_apache.log`
-        value: '{"file": "/var/log/pods/checkout_pickuppoint-cloud-5d6d55c7f-76rxs_7c7870be-369b-4e6a-a547-05b9a529e499/pickuppoint-cloud/1.log","kubernetes": {"container_id": "containerd://1b9fb0042fbadc9850d4555e3d0c7fb37c8588bb205918b08de269356cbd4eb8","container_image": "bring.azurecr.io/pickuppoint-cloud:444db448896c6d1531e78a165fff596c05db7e06","container_name": "pickuppoint-cloud","pod_annotations": { "ad.datadoghq.com/pickuppoint-cloud.check_names": "[\"jmx\"]","ad.datadoghq.com/pickuppoint-cloud.init_configs": "[{\"is_jmx\":true,\"collect_default_metrics\":true,\"conf\":[]}]","ad.datadoghq.com/pickuppoint-cloud.instances": "[{\"host\": \"%%host%%\",\"port\":\"7199\"}]","seccomp.security.alpha.kubernetes.io/pod": "runtime/default"},"pod_ip": "10.102.8.157","pod_ips": ["10.102.8.157"],"pod_labels": {"aadpodidbinding": "checkout-managed-identity","app.kubernetes.io/instance": "pickuppoint-cloud","app.kubernetes.io/name": "pickuppoint-cloud","pod-template-hash": "5d6d55c7f"},"pod_name": "pickuppoint-cloud-5d6d55c7f-76rxs","pod_namespace": "checkout","pod_node_name": "aks-standard-32704328-vmss00000b","pod_owner": "ReplicaSet/pickuppoint-cloud-5d6d55c7f","pod_uid": "7c7870be-369b-4e6a-a547-05b9a529e499"},"message": "2022-03-15 13:51:31.170  INFO 1 --- [nio-8080-exec-4] c.zhenik.app.simple.GreetingController   : Get key - JAVA_HOME", "source_type": "kubernetes_logs","stream": "stdout","timestamp": "2022-03-09T13:17:53.200470891Z"}'
-    no_outputs_from:
-      - message_parser
-    outputs:
-      - extract_from: message_parser.dropped
-        conditions:
-          - type: vrl
-            source: |-
-              assert!(exists(.contextMap) == false)
-              assert!(exists(.message))

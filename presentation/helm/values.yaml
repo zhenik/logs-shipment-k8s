@@ -1,0 +1,42 @@
+role: "Agent"
+nameOverride: "vector-applogs"
+image:
+  repository: timberio/vector
+  pullPolicy: IfNotPresent
+  tag: "0.20.0-distroless-libc"
+serviceAccount:
+  create: true
+  name: "vector-applogs-service-account"
+podSecurityContext:
+  runAsUser: 0
+resources:
+  requests:
+    cpu: 200m
+    memory: 256Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+service:
+  enabled: true
+  type: "ClusterIP"
+
+## Ref: https://vector.dev/docs/reference/configuration/
+customConfig:
+  data_dir: /vector-data-dir
+  sources:
+    stdin:
+      type: stdin
+  transforms:
+    json_parser:
+      type: remap
+      inputs:
+        - stdin
+      source: |-
+        structured,err = parse_json(.message)
+        . = merge!(., structured)
+  sinks:
+    stdout:
+      type: console
+      inputs: [ json_parser ]
+      encoding:
+        codec: json

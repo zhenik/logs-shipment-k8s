@@ -29,6 +29,14 @@ Test
 vector test --config-yaml config/simple_2.yaml
 ```
 
+- [Topology visualization](https://vector.dev/docs/reference/cli/#graph) and [webGraphviz](http://www.webgraphviz.com/)
+```shell
+# install graphviz (many dependencies)
+brew install graphviz
+# visualise topology
+vector graph --config config/simple_1.yaml | dot -Tsvg > graph.svg
+```
+
 ## Vector deployment to k8s
 - Our deployment case is [Vector as distributed agent](https://vector.dev/docs/setup/deployment/topologies/) across nodes in kubernetes cluster.
 We are going to deploy Vector in Agent mode to k8s cluster(s).

@@ -71,4 +71,5 @@ Vector supports several formats for the config:
 
 We use `yaml` due to we deploy thing through the `helm` which use `yaml` also
 
-
+## Deep dive in current setup
+- todo//

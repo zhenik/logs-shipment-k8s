@@ -1,0 +1,18 @@
+data_dir: /vector-data-dir
+sources:
+  stdin:
+    type: stdin
+transforms:
+  json_parser:
+    type: remap
+    inputs:
+      - stdin
+    source: |-
+      structured,err = parse_json(.message)
+      . = merge!(., structured)
+sinks:
+  stdout:
+    type: console
+    inputs: [ json_parser ]
+    encoding:
+      codec: json

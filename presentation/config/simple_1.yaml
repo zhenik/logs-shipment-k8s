@@ -10,9 +10,10 @@ transforms:
     source: |-
       structured,err = parse_json(.message)
       . = merge!(., structured)
+      .source_type = "json_parser"
 sinks:
   stdout:
     type: console
-    inputs: [ json_parser ]
+    inputs: [ json_parser, stdin]
     encoding:
       codec: json
